@@ -1,21 +1,26 @@
-# Use a lightweight Node.js base image
+# Step 1: Use an official Node.js image as a base image
 FROM node:18-alpine
 
-# Set the working directory
+# Step 2: Set the working directory in the container
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json package-lock.json* pnpm-lock.yaml* ./
-RUN npm install -g pnpm && pnpm install
+# Step 3: Install pnpm globally
+RUN npm install -g pnpm
 
-# Copy the rest of the app's source code
+# Step 4: Copy the package.json and pnpm-lock.yaml files into the container
+COPY package.json pnpm-lock.yaml ./
+
+# Step 5: Install the dependencies using pnpm
+RUN pnpm install
+
+# Step 6: Copy the rest of the application code into the container
 COPY . .
 
-# Build the Svelte app
+# Step 7: Build the project
 RUN pnpm run build
 
-# Expose the app's port (default for most Svelte apps)
+# Step 8: Expose the port the app will run on
 EXPOSE 4173
 
-# Start the Svelte app
-CMD ["pnpm", "run", "preview"]
+# Step 9: Set the command to start the preview server on port 4173
+CMD ["pnpm", "preview"]
