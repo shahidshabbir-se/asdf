@@ -36,4 +36,4 @@ jobs:
             gunzip /home/abubakar/my-app.tar.gz
             docker load < /home/abubakar/my-app.tar
             docker rm -f my-app || true
-            docker run -d -p 4173:3000 --name my-app my-app
+            docker run -d -p 4173:4173 --name my-app my-app
