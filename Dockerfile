@@ -18,4 +18,4 @@ RUN pnpm run build
 EXPOSE 5173
 
 # Start the Svelte app
-CMD ["pnpm", "run", "start"]
+CMD ["pnpm", "run", "dev"]
