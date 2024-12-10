@@ -33,7 +33,22 @@ jobs:
           username: abubakar
           key: ${{ secrets.HOSTINGER_SSH_KEY }}
           script: |
+            # Check if the tarball already exists and remove it if needed
+            if [ -f /home/abubakar/my-app.tar.gz ]; then
+              echo "Found existing tarball, removing it..."
+              rm /home/abubakar/my-app.tar.gz
+            fi
+            if [ -f /home/abubakar/my-app.tar ]; then
+              echo "Found existing tar file, removing it..."
+              rm /home/abubakar/my-app.tar
+            fi
+
+            # Decompress and load the Docker image
             gunzip /home/abubakar/my-app.tar.gz
             docker load < /home/abubakar/my-app.tar
+
+            # Stop and remove any running container with the same name
             docker rm -f my-app || true
+
+            # Run the Docker container
             docker run -d -p 4173:4173 --name my-app my-app
