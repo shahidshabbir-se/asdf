@@ -15,7 +15,7 @@ COPY . .
 RUN pnpm run build
 
 # Expose the app's port (default for most Svelte apps)
-EXPOSE 3000
+EXPOSE 4173
 
 # Start the Svelte app
 CMD ["pnpm", "run", "preview"]
